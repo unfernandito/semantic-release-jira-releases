@@ -1,12 +1,11 @@
-import JiraClient from 'jira-connector';
+import { Version2Client } from "jira.js";
 
-import { PluginConfig, PluginContext } from './types';
+import { PluginConfig } from "./types";
 
-export function makeClient(config: PluginConfig, context: PluginContext): JiraClient {
-  return new JiraClient({
+export function makeClient(config: PluginConfig): Version2Client {
+  return new Version2Client({
     host: config.jiraHost,
-    basic_auth: {
-      base64: context.env.JIRA_AUTH,
-    },
+    telemetry: false,
+    authentication: config.authentication,
   });
 }

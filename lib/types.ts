@@ -1,4 +1,5 @@
-import { Signale } from 'signale';
+import { Signale } from "signale";
+import { Config } from "jira.js";
 
 export interface PluginContext {
   cwd: string;
@@ -55,8 +56,9 @@ export interface BaseConfig {
   dryRun: boolean;
 }
 
-export const DEFAULT_VERSION_TEMPLATE = 'v${version}';
-export const DEFAULT_RELEASE_DESCRIPTION_TEMPLATE = 'Automated release with semantic-release-jira-releases https://git.io/JvAbj';
+export const DEFAULT_VERSION_TEMPLATE = "v${version}";
+export const DEFAULT_RELEASE_DESCRIPTION_TEMPLATE =
+  "Automated release with semantic-release-jira-releases https://git.io/JvAbj";
 
 export interface PluginConfig extends BaseConfig {
   /**
@@ -117,4 +119,13 @@ export interface PluginConfig extends BaseConfig {
    * include the release date when creating a release in jira
    */
   setReleaseDate?: boolean;
+
+  /**
+   * indicates the authorization method for jira, references: https://github.com/MrRefactoring/jira.js#authentication
+   */
+  authentication:
+    | Pick<Config.Authentication, "jwt">
+    | Pick<Config.Authentication, "basic">
+    | Pick<Config.Authentication, "oauth">
+    | Pick<Config.Authentication, "oauth2">;
 }
